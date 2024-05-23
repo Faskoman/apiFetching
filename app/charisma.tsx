@@ -35,6 +35,14 @@ export default function HomeScreen() {
       <Text>Index: {data.index}</Text>
       <Text>Name: {data.name}</Text>
       <Text>Full Name: {data.full_name}</Text>
+      <Text>Description:</Text>
+      {data.desc.map((desc, index) => (
+        <Text key={index}>{desc}</Text>
+      ))}
+      <Text>Skills: </Text>
+      {data.skills.map((skill) => (
+        <Text key={skill.index}>{skill.name}</Text>
+      ))}
     </View>
   );
 }

@@ -10,7 +10,7 @@ export default function HomeScreen() {
     async function fetchData() {
       try {
         const response = await fetch(
-          "https://www.dnd5eapi.co/api/ability-scores/str"
+          "https://www.dnd5eapi.co/api/ability-scores/int"
         );
         const rawData: DndData = await response.json();
         setData(rawData);

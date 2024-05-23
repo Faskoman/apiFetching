@@ -8,6 +8,7 @@ export default function HomeScreen() {
       <Text>Home</Text>
       <Link href={"/charisma"}>Charisma</Link>
       <Link href={"/strength"}>Strength</Link>
+      <Link href={"/intelligence"}>Intelligence</Link>
     </View>
   );
 }
