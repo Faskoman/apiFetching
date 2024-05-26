@@ -1,6 +1,6 @@
 import { Link } from "expo-router";
 import { useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { DndData } from "./types";
 
 export default function HomeScreen() {
@@ -31,7 +31,7 @@ export default function HomeScreen() {
 
   return (
     <View>
-      <Link href={"/"}>Home</Link>
+      <Link href={"/"} style={styles.links}>Home</Link>
       <Text>Index: {data.index}</Text>
       <Text>Name: {data.name}</Text>
       <Text>Full Name: {data.full_name}</Text>
@@ -46,3 +46,13 @@ export default function HomeScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  linklist: {
+    marginTop: "8%",
+  }, 
+  links: {
+    fontSize: 13,
+    color: "blue"
+  }
+})

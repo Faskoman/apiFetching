@@ -1,27 +1,16 @@
-import { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import { DndData } from "./types";
 import { Link } from "expo-router";
+import { useQuery } from "react-query";
+
 
 export default function HomeScreen() {
-  const [data, setData] = useState<DndData | null>(null);
+  const {data: DndData, isLoading} = useQuery({
+    queryFn: () => fetchData(),
+    queryKey: ["DndData"],
+  });
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(
-          "https://www.dnd5eapi.co/api/ability-scores/int"
-        );
-        const rawData: DndData = await response.json();
-        setData(rawData);
-      } catch (error) {
-        throw new Error("Something went wrong!");
-      }
-    }
-    fetchData();
-  }, []);
-
-  if (!data) {
+  if (isLoading) {
     return (
       <View>
         <Text>Loading...</Text>
@@ -32,17 +21,29 @@ export default function HomeScreen() {
   return (
     <View>
       <Link href={"/"}>Home</Link>
-      <Text>Index: {data.index}</Text>
-      <Text>Name: {data.name}</Text>
-      <Text>Full Name: {data.full_name}</Text>
+      <Text>Index: {DndData?.index}</Text>
+      <Text>Name: {DndData?.name}</Text>
+      <Text>Full Name: {DndData?.full_name}</Text>
       <Text>Description:</Text>
-      {data.desc.map((desc, index) => (
+      {DndData?.desc.map((desc, index) => (
         <Text key={index}>{desc}</Text>
       ))}
       <Text>Skills: </Text>
-      {data.skills.map((skill) => (
+      {DndData?.skills.map((skill) => (
         <Text key={skill.index}>{skill.name}</Text>
       ))}
     </View>
   );
+}
+
+async function fetchData() {
+  try {
+    const response = await fetch(
+      "https://www.dnd5eapi.co/api/ability-scores/int"
+    );
+    const rawData: DndData = await response.json();
+    return rawData;
+  } catch (error) {
+    throw new Error("Something went wrong!");
+  }
 }

@@ -1,7 +1,12 @@
 import { Slot } from "expo-router";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const QureyClient = new QueryClient();
 
 export default function LayoutHome() {
     return (
-        <Slot />
+        <QueryClientProvider client={QureyClient}>
+            <Slot />
+        </QueryClientProvider>
     )
 }
